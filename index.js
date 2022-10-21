@@ -18,6 +18,8 @@ app.get('/cadastroCategorias', (req, res)=>{
     res.render('categoria/index');
 });
 
+
+
 //ROTA DE LISTAGEM DE CATEGORIAS
 app.get('/listagemCategorias', (req, res)=>{
     
@@ -42,3 +44,44 @@ app.get('/listagemCategorias', (req, res)=>{
 app.listen(3001, ()=>{
     console.log('SERVIDOR RODANDO EM: http://localhost:3001');
 });
+
+
+
+                                        //****************PARTE INSTRUMENTO****************** */
+
+
+
+
+                         
+
+//ROTA DE CADASTRO DE INSTRUMENTO 
+app.get('/cadastroInstrumento', (req, res)=>{
+    res.render('instrumento/index');
+});
+
+
+//ROTA DE LISTAGEM DE INSTRUMENTOS
+app.get('/listagemInstrumento', (req, res)=>{
+    
+    const urlListagemInstrumento = 'http://localhost:3000/listarInstrumento';
+
+    /*
+    CHAMADA PELO AXIOS:
+    1 - URL DA ROTA (urlListagemCategoria)
+    2 - CALLBACK DA RESPOSTA DA CHAMADA
+    */
+    axios.get(urlListagemInstrumento)
+        .then(
+            (response)=>{
+                // console.log(response.data);
+                // res.send(response.data);
+                let instrumentos = response.data;
+                res.render('categoria/listagemInstrumento', {instrumentos});
+
+        }); 
+    });
+
+app.listen(3002, ()=>{
+    console.log('SERVIDOR RODANDO EM: http://localhost:3002');
+});
+
