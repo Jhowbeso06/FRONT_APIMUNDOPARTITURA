@@ -140,3 +140,38 @@ app.get('/formEdicaoInstrumento/:id', (req, res)=>{
 app.listen(3001, ()=>{
     console.log('SERVIDOR RODANDO EM: http://localhost:3001');
 });
+
+
+
+
+
+
+app.get('/excluirCategoria/:id',(req, res)=>{
+    let {id} = req.params;
+    const urlDeletarCategoria = `http://localhost:3000/excluirCategoria/${id}`;
+    axios.delete(urlDeletarCategoria, req.body)
+    .then(
+        res.send('DELETADO')
+)});
+
+
+
+
+
+
+
+
+
+
+
+app.get('/excluirInstrumento/:id',(req, res)=>{
+    let {id} = req.params;
+    const urlDeletarInstrumento = `http://localhost:3000/excluirInstrumento/${id}`;
+    axios.delete(urlDeletarInstrumento, req.body)
+    .then(
+        res.send('DELETADO')
+)});
+
+
+
+
