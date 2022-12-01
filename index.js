@@ -6,50 +6,68 @@ const axios = require('axios').default;
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-//MAPEAMENTO DA PASTA PUBLIC
+
 app.use(express.static('public'));
 
-//CONFIGURA O EJS COMO VIEW ENGINE (REDENRIZA AS PÁGINAS DE FRONT-END)
+
 app.set('view engine', 'ejs');
 
 
-//ROTA DE CADASTRO DE CATEGORIAS
+
 app.get('/cadastroCategorias', (req, res)=>{
     res.render('categoria/index');
 });
 
-//ROTA DE LISTAGEM DE CATEGORIAS
+//INSTRUMENTO
+app.get('/cadastroInstrumento', (req, res)=>{
+    res.render('categoria/index');
+});
+
+
 app.get('/listagemCategorias', (req, res)=>{
     
     const urlListagemCategoria = 'http://localhost:3000/listarCategoria';
 
-    /*
-    CHAMADA PELO AXIOS:
-    1 - URL DA ROTA (urlListagemCategoria)
-    2 - CALLBACK DA RESPOSTA DA CHAMADA
-    */
+ 
     axios.get(urlListagemCategoria)
         .then(
             (response)=>{
-                // console.log(response.data);
-                // res.send(response.data);
+              
                 let categorias = response.data;
                 res.render('categoria/listagemCategoria', {categorias});
 
         }); 
     });
 
-    //ROTA DE LISTAGEM DE EDIÇÃO
-    
-app.get('/formEdicaoCategorias/:id', (req, res)=>{
-        
-        //RECEBE O ID DE CATEGORIA QUE VAI SER EDITADO
-        let {id} = req.params;
-        // console.log(id);
 
-        //CHAMADA DO AXIOS PARA A API:
+//INSTRUMENTO
+
+
+app.get('/listagemInstrumento', (req, res)=>{
+    
+    const urlListagemInstrumento = 'http://localhost:3000/listarInstrumento';
+
+ 
+    axios.get(urlListagemInstrumento)
+        .then(
+            (response)=>{
+              
+                let instrumento = response.data;
+                res.render('categoria/listagemInstrumento', {instrumento});
+
+        }); 
+    });
+
+
+
+    app.get('/formEdicaoCategorias/:id', (req, res)=>{
+        
+        let {id} = req.params;
+       
         const urlListagemCategoria = `http://localhost:3000/listarCategoria/${id}`;
         
+
+
         axios.get(urlListagemCategoria)
         .then(
             (response)=>{
@@ -61,7 +79,33 @@ app.get('/formEdicaoCategorias/:id', (req, res)=>{
         )
     });
 
-    //ROTA DE EDIÇÃO
+
+//INSTRUMENTO
+
+
+app.get('/formEdicaoInstrumento/:id', (req, res)=>{
+        
+    let {id} = req.params;
+   
+    const urlListagemInstrumento = `http://localhost:3000/listarInstrumento/${id}`;
+    
+
+
+    axios.get(urlListagemInstrumento)
+    .then(
+        (response)=>{
+
+            let instrumento = response.data;
+            res.render('categoria/editarIntrumento', {instrumento});
+
+        }
+    )
+});
+
+
+
+
+
     app.post('/alterarCategoria', (req, res)=>{
 
         const urlAlterarCategoria = 'http://localhost:3000/alterarCategoria';
@@ -73,6 +117,25 @@ app.get('/formEdicaoCategorias/:id', (req, res)=>{
         )
 
     });
+
+    //INSTRUMENTO
+
+
+
+
+
+    app.post('/alterarInstrumento', (req, res)=>{
+
+        const urlAlterarInstrumento = 'http://localhost:3000/alterarInstrumento';
+        console.log(req.body);
+
+        axios.put(urlAlterarInstrumento, req.body)
+        .then(
+            res.send('ALTERADO!')
+        )
+
+    });
+
 
 app.listen(3001, ()=>{
     console.log('SERVIDOR RODANDO EM: http://localhost:3001');
