@@ -20,7 +20,7 @@ app.get('/cadastroCategorias', (req, res)=>{
 
 //INSTRUMENTO
 app.get('/cadastroInstrumento', (req, res)=>{
-    res.render('categoria/index');
+    res.render('instrumento/index');
 });
 
 
@@ -53,7 +53,7 @@ app.get('/listagemInstrumento', (req, res)=>{
             (response)=>{
               
                 let instrumento = response.data;
-                res.render('categoria/listagemInstrumento', {instrumento});
+                res.render('instrumento/listagemInstrumento', {instrumento});
 
         }); 
     });
@@ -96,7 +96,7 @@ app.get('/formEdicaoInstrumento/:id', (req, res)=>{
         (response)=>{
 
             let instrumento = response.data;
-            res.render('categoria/editarIntrumento', {instrumento});
+            res.render('instrumento/editarInstrumento', {instrumento});
 
         }
     )
